@@ -7,6 +7,7 @@ namespace Lightit\Backoffice\City\App\Request;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Lightit\Backoffice\City\Domain\DataTransferObjects\CityDto;
+use Lightit\Backoffice\City\Domain\Models\City;
 
 class UpdateCityRequest extends FormRequest
 {
@@ -14,8 +15,11 @@ class UpdateCityRequest extends FormRequest
 
     public function rules(): array
     {
+        /** @var City $city */
+        $city = $this->city;
+
         return [
-            self::NAME => ['required', 'string', 'max:255', Rule::unique('cities')->ignore($this->city->id)],
+            self::NAME => ['required', 'string', 'max:255', Rule::unique('cities')->ignore($city->id)],
         ];
     }
 

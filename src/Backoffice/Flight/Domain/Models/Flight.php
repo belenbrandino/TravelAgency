@@ -10,19 +10,18 @@ use Lightit\Backoffice\Airline\Domain\Models\Airline;
 use Lightit\Backoffice\City\Domain\Models\City;
 
 /**
- * 
- *
- * @property int $id
- * @property int $airline_id
- * @property int $origin_city_id
- * @property int $destination_city_id
- * @property string $departure_date
- * @property string $arrival_date
+ * @property int                             $id
+ * @property int                             $airline_id
+ * @property int                             $origin_city_id
+ * @property int                             $destination_city_id
+ * @property string                          $departure_date
+ * @property string                          $arrival_date
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read Airline $airline
  * @property-read City $destinationCity
  * @property-read City $originCity
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Flight newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Flight newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Flight query()
@@ -34,6 +33,7 @@ use Lightit\Backoffice\City\Domain\Models\City;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Flight whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Flight whereOriginCityId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Flight whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Flight extends Model

@@ -14,6 +14,7 @@ class UpdateCityAction
         $city->update([
             'name' => $cityDto->getName(),
         ]);
+
         return $city;
     }
 }
