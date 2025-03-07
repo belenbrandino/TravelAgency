@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Lightit\Backoffice\Employee\App\Transformers;
+namespace Lightit\Backoffice\City\App\Transformers;
 
 use Flugg\Responder\Transformers\Transformer;
 use Lightit\Backoffice\City\Domain\Models\City;

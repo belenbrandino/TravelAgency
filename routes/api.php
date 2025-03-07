@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Lightit\Backoffice\City\App\Controllers\GetCityController;
 use Lightit\Backoffice\City\App\Controllers\ListCityController;
+use Lightit\Backoffice\City\App\Controllers\StoreCityController;
+use Lightit\Backoffice\City\App\Controllers\UpdateCityController;
 use Lightit\Backoffice\Users\App\Controllers\{
     DeleteUserController, GetUserController, ListUserController, StoreUserController
 };
@@ -39,11 +42,16 @@ Route::prefix('users')
 
 /*
 |--------------------------------------------------------------------------
-| City Routes
+| Cities Routes
 |--------------------------------------------------------------------------
 */
 Route::prefix('cities')
-->middleware([])
 ->group(static function () {
     Route::get('/', ListCityController::class);
+    Route::post('/', StoreCityController::class);
+    Route::prefix('/{city}')
+    ->group(static function () {
+        Route::get('/', GetCityController::class);
+        Route::put('/', UpdateCityController::class);
+    });
 });
