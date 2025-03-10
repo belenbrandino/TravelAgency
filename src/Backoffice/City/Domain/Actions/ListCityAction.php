@@ -4,16 +4,31 @@ declare(strict_types=1);
 
 namespace Lightit\Backoffice\City\Domain\Actions;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\Paginator;
+use Lightit\Backoffice\City\Domain\DataTransferObjects\ListCityDto;
 use Lightit\Backoffice\City\Domain\Models\City;
+use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class ListCityAction
 {
     /**
-     * @return Collection <int, City>
+     * @return Paginator <City>
     */
-    public function execute(): Collection
+    public function execute(ListCityDto $listCityDto): Paginator
     {
-        return City::all();
+        /** @var Paginator<City> */
+        return QueryBuilder::for(City::class)
+            ->allowedFilters([
+                AllowedFilter::callback('airline', function (Builder $query, $value) {
+                    $query->whereHas('airlines', function ($q) use ($value) {
+                        $q->where('id', $value);
+                    });
+                }),
+            ])
+            ->allowedSorts('name', 'id')
+            ->defaultSort('-updated_at', '-created_at')
+            ->simplePaginate();
     }
 }
