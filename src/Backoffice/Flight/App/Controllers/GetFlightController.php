@@ -12,6 +12,8 @@ class GetFlightController
 {
     public function __invoke(Flight $flight): JsonResponse
     {
-        return responder()->success($flight, FlightTransformer::class)->respond();
+        return responder()
+            ->success($flight, FlightTransformer::class)
+            ->respond();
     }
 }

@@ -12,6 +12,8 @@ class GetCityController
 {
     public function __invoke(City $city): JsonResponse
     {
-        return responder()->success($city, CityTransformer::class)->respond();
+        return responder()
+            ->success($city, CityTransformer::class)
+            ->respond();
     }
 }

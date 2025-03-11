@@ -14,6 +14,8 @@ class ListFlightController
     {
         $flights = Flight::all();
 
-        return responder()->success($flights, FlightTransformer::class)->respond();
+        return responder()
+            ->success($flights, FlightTransformer::class)
+            ->respond();
     }
 }
