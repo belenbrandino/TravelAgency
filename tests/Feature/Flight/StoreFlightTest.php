@@ -12,7 +12,6 @@ use Lightit\Backoffice\Flight\App\Transformers\FlightTransformer;
 use Lightit\Backoffice\Flight\Domain\Models\Flight;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\postJson;
-use Lightit\Backoffice\Airline\Domain\Exceptions\InvalidCityAirlineException;
 
 describe('flights', function () {
     /** @see StoreFlightController */
