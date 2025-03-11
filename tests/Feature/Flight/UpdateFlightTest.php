@@ -35,7 +35,7 @@ describe('flights', function () {
         $response = putJson(url("/api/flights/{$flight->id}"), $updatedData)
         ->assertSuccessful()
         ->assertJson([
-            'status' => JsonResponse::HTTP_CREATED,
+            'status' => JsonResponse::HTTP_OK,
             'success' => true,
             'data' => $updatedData,
         ]);
