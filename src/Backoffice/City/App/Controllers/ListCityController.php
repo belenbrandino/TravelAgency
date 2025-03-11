@@ -14,6 +14,8 @@ class ListCityController
     {
         $cities = $action->execute();
 
-        return responder()->success($cities, CityTransformer::class)->respond();
+        return responder()
+            ->success($cities, CityTransformer::class)
+            ->respond();
     }
 }

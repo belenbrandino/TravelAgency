@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Lightit\Backoffice\Airline\App\Transformers;
 
 use Flugg\Responder\Transformers\Transformer;
-use Illuminate\Database\Eloquent\Collection;
 use Lightit\Backoffice\Airline\Domain\Models\Airline;
-use Lightit\Backoffice\City\Domain\Models\City;
+use Lightit\Backoffice\City\App\Transformers\CityTransformer;
 
 class AirlineTransformer extends Transformer
 {
-    /**
-     * @return array{id: int, name: string, description: string, cities: Collection <int, City>}
-    */
     public function transform(Airline $airline): array
     {
+        $citiesTransformed = $airline->cities->map(function ($city) {
+            return (new CityTransformer())->transform($city);
+        });
+
         return [
             'id' => $airline->id,
             'name' => $airline->name,
             'description' => $airline->description,
-            'cities' => $airline->cities,
+            'cities' => $citiesTransformed,
         ];
     }
 }
