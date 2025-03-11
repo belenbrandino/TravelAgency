@@ -49,10 +49,10 @@ describe('flights', function () {
             ->firstOrFail();
 
         $response
-            ->assertCreated()
+            ->assertSuccessful()
             ->assertJson(
                 fn (AssertableJson $json) =>
-                $json->where('status', JsonResponse::HTTP_CREATED)
+                $json->where('status', JsonResponse::HTTP_OK)
                     ->where('success', true)
                     ->has(
                         'data',
