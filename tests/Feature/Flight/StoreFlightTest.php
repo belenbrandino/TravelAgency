@@ -12,13 +12,16 @@ use Lightit\Backoffice\Flight\App\Transformers\FlightTransformer;
 use Lightit\Backoffice\Flight\Domain\Models\Flight;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\postJson;
+use Lightit\Backoffice\Airline\Domain\Exceptions\InvalidCityAirlineException;
 
 describe('flights', function () {
     /** @see StoreFlightController */
     it('can create a flight successfully', function () {
-        $airline = AirlineFactory::new()->withCities()->createOne();
+        $airline = AirlineFactory::new()->createOne();
         $origin = CityFactory::new()->createOne();
         $destination = CityFactory::new()->createOne();
+        $airline->cities()->attach($origin);
+        $airline->cities()->attach($destination);
 
         $flightData = [
             'airline_id'         => $airline->id,
@@ -29,6 +32,8 @@ describe('flights', function () {
         ];
 
         $response = postJson(url('/api/flights'), $flightData);
+        $response
+            ->assertCreated();
 
         $flight = Flight::query()
             ->where('airline_id', $flightData['airline_id'])

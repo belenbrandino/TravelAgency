@@ -19,16 +19,6 @@ class AirlineFactory extends Factory
         return [
             'name' => $this->faker->unique()->company(),
             'description' => $this->faker->paragraph(),
-
         ];
     }
-
-    public function withCities(int $count = 2): AirlineFactory
-    {
-        return $this->afterCreating(function (Airline $airline) use ($count) {
-            $cities = CityFactory::new()->count($count)->create();
-            $airline->cities()->attach($cities->pluck('id'));
-        });
-    }
-
 }

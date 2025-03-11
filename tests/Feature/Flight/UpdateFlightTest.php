@@ -18,9 +18,11 @@ describe('flights', function () {
     /** @see UpdateFlightController */
     it('can update a flight successfully', function () {
         $flight = FlightFactory::new()->createOne();
-        $airline = AirlineFactory::new()->withCities()->createOne();
+        $airline = AirlineFactory::new()->createOne();
         $origin = CityFactory::new()->createOne();
         $destination = CityFactory::new()->createOne();
+        $airline->cities()->attach($origin);
+        $airline->cities()->attach($destination);
 
         $updatedData = [
             'airline_id'         => $airline->id,

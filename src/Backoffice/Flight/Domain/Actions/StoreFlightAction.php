@@ -18,7 +18,7 @@ class StoreFlightAction
         try {
             $airline = Airline::findOrFail($flightDto->getAirlineID());
             $operating_cities_airline = $airline->cities->pluck('id')->toArray();
-        } catch (ModelNotFoundException $e) {
+        } catch (ModelNotFoundException) {
             throw InvalidCityAirlineException::airlineNotFound($flightDto->getAirlineID());
         }
 
