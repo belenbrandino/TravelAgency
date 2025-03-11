@@ -15,6 +15,8 @@ class UpdateAirlineRequest extends FormRequest
 
     public const DESCRIPTION = 'description';
 
+    public const CITIES = 'cities';
+
     public function rules(): array
     {
         /** @var Airline $airline */
@@ -23,6 +25,8 @@ class UpdateAirlineRequest extends FormRequest
         return [
             self::NAME => ['required', 'string', 'max:255', Rule::unique('airlines')->ignore($airline->id)],
             self::DESCRIPTION => ['required', 'string'],
+            self::CITIES => ['required', 'array'],
+            self::CITIES . '.*' => ['required', 'array'],
         ];
     }
 
@@ -31,6 +35,7 @@ class UpdateAirlineRequest extends FormRequest
         return new AirlineDto(
             name: $this->string(self::NAME)->toString(),
             description: $this->string(self::DESCRIPTION)->toString(),
+            cities: $this->array(self::CITIES),
         );
     }
 }

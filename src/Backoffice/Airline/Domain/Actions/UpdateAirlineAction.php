@@ -11,10 +11,14 @@ class UpdateAirlineAction
 {
     public function execute(Airline $airline, AirlineDto $airlineDto): Airline
     {
+        $airline->cities()->detach($airlineDto->getCities());
+
         $airline->update([
             'name' => $airlineDto->getName(),
             'description' => $airlineDto->getDescription(),
         ]);
+
+        $airline->cities()->attach($airlineDto->getCities());
 
         return $airline;
     }

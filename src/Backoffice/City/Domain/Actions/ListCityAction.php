@@ -20,9 +20,9 @@ class ListCityAction
         /** @var Paginator<City> */
         return QueryBuilder::for(City::class)
             ->allowedFilters([
-                AllowedFilter::callback('airline', function (Builder $query, $value) {
+                AllowedFilter::callback('airline', function (Builder $query, string $value) {
                     $query->whereHas('airlines', function ($q) use ($value) {
-                        $q->where('airlines.id', $value);
+                        $q->where('airlines.id', (int) $value);
                     });
                 }),
             ])

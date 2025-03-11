@@ -19,11 +19,11 @@ class FlightFactory extends Factory
         $departure_date = $this->faker->dateTimeBetween('now', '+1 days');
         $arrival_date = (clone $departure_date)->modify('+6 hours');
         return [
-            'airline_id' => AirlineFactory::new(),
+            'airline_id' => AirlineFactory::new()->withCities()->create(),
             'origin_city_id' => CityFactory::new(),
             'destination_city_id' => CityFactory::new(),
-            'departure_date' => $departure_date,
-            'arrival_date' => $arrival_date
+            'departure_date' => $departure_date->format('Y-m-d H:i:s'),
+            'arrival_date' => $arrival_date->format('Y-m-d H:i:s')
         ];
     }
 

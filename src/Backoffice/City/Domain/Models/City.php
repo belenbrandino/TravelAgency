@@ -28,6 +28,9 @@ use Lightit\Backoffice\Flight\Domain\Models\Flight;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|City whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|City whereUpdatedAt($value)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, Airline> $airlines
+ * @property-read int|null $airlines_count
+ *
  * @mixin \Eloquent
  */
 class City extends Model

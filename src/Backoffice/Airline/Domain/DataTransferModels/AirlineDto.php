@@ -9,6 +9,7 @@ class AirlineDto
     public function __construct(
         private readonly string $name,
         private readonly string $description,
+        private readonly array $cities,
     ) {
     }
 
@@ -20,5 +21,10 @@ class AirlineDto
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function getCities(): array
+    {
+        return $this->cities;
     }
 }
