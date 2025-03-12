@@ -12,9 +12,7 @@ class AirlineTransformer extends Transformer
 {
     public function transform(Airline $airline): array
     {
-        $citiesTransformed = $airline->cities->map(function ($city) {
-            return (new CityTransformer())->transform($city);
-        });
+        $citiesTransformed = $airline->cities->map(fn ($city) => (new CityTransformer())->transform($city));
 
         return [
             'id' => $airline->id,

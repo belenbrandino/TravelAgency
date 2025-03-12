@@ -25,7 +25,6 @@ class UpdateAirlineRequest extends FormRequest
         return [
             self::NAME => ['required', 'string', 'max:255', Rule::unique('airlines')->ignore($airline->id)],
             self::DESCRIPTION => ['required', 'string'],
-            self::CITIES => ['required', 'array'],
             self::CITIES => ['required', 'array', 'exists:cities,id'],
         ];
     }
