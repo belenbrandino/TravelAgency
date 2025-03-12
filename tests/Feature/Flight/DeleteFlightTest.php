@@ -17,12 +17,7 @@ describe('flights', function () {
 
         deleteJson(url("/api/flights/{$flight->id}"))
             ->assertSuccessful()
-            ->assertJson(
-                fn (AssertableJson $json) =>
-                $json->where('status', JsonResponse::HTTP_OK)
-                    ->where('success', true)
-                    ->where('data', null)
-            );
+            ->assertNoContent();
 
         assertDatabaseMissing('flights', [
             'id' => $flight->id,
