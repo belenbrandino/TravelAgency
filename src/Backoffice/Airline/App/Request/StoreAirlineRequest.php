@@ -20,8 +20,7 @@ class StoreAirlineRequest extends FormRequest
         return [
             self::NAME => ['required', 'string', 'max:255', 'unique:airlines'],
             self::DESCRIPTION => ['required', 'string'],
-            self::CITIES => ['required', 'array'],
-            self::CITIES . '.*' => ['exists:cities,id'],
+            self::CITIES => ['required', 'array', 'exists:cities,id'],
         ];
     }
 

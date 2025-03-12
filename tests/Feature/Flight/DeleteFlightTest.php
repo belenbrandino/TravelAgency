@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Flight;
 
 use Database\Factories\FlightFactory;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Testing\Fluent\AssertableJson;
 use function Pest\Laravel\assertDatabaseMissing;
 use function Pest\Laravel\deleteJson;
 
