@@ -14,6 +14,6 @@ class DeleteAirlineController
         $airline->flights()->delete();
         $airline->delete();
 
-        return responder()->success()->respond();
+        return responder()->success()->respond(JsonResponse::HTTP_NO_CONTENT);
     }
 }
