@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Lightit\Backoffice\Flight\Domain\Actions;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Lightit\Backoffice\Airline\Domain\Exceptions\InvalidCityAirlineException;
 use Lightit\Backoffice\Airline\Domain\Models\Airline;
-use Lightit\Backoffice\City\Domain\Models\City;
 use Lightit\Backoffice\Flight\Domain\DataTransferModels\FlightDto;
 use Lightit\Backoffice\Flight\Domain\Models\Flight;
 
@@ -15,31 +13,22 @@ class StoreFlightAction
 {
     public function execute(FlightDto $flightDto): Flight
     {
-        try {
-            $airline = Airline::findOrFail($flightDto->getAirlineID());
-            $operating_cities_airline = $airline->cities->pluck('id')->toArray();
-        } catch (ModelNotFoundException) {
-            throw InvalidCityAirlineException::airlineNotFound($flightDto->getAirlineID());
+        $airline = Airline::findOrFail($flightDto->getAirlineID());
+        $operating_cities_airline = $airline->cities->pluck('id')->toArray();
+
+        $originCityID = $flightDto->getOriginCity();
+        $destinationCityID = $flightDto->getDestinationCity();
+
+        if (! in_array($originCityID, $operating_cities_airline)) {
+            throw new InvalidCityAirlineException(
+                "Airline {$airline->name} does not operate in the indicated destination city: {$originCityID}"
+            );
         }
 
-        try {
-            $origin_city = City::findOrFail($flightDto->getOriginCity());
-        } catch (ModelNotFoundException) {
-            throw InvalidCityAirlineException::cityNotFound($flightDto->getOriginCity());
-        }
-
-        try {
-            $destination_city = City::findOrFail($flightDto->getDestinationCity());
-        } catch (ModelNotFoundException) {
-            throw InvalidCityAirlineException::cityNotFound($flightDto->getDestinationCity());
-        }
-
-        if (! in_array($origin_city->id, $operating_cities_airline)) {
-            throw InvalidCityAirlineException::cityNotInAirline('origin', $origin_city->id);
-        }
-
-        if (! in_array($destination_city->id, $operating_cities_airline)) {
-            throw InvalidCityAirlineException::cityNotInAirline('destination', $destination_city->id);
+        if (! in_array($destinationCityID, $operating_cities_airline)) {
+            throw new InvalidCityAirlineException(
+                "Airline {$airline->name} does not operate in the indicated destination city: {$destinationCityID}"
+            );
         }
 
         return Flight::create([

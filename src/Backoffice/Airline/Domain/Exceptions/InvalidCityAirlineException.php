@@ -4,22 +4,14 @@ declare(strict_types=1);
 
 namespace Lightit\Backoffice\Airline\Domain\Exceptions;
 
-use Exception;
+use Flugg\Responder\Exceptions\Http\HttpException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
-class InvalidCityAirlineException extends Exception
+class InvalidCityAirlineException extends HttpException
 {
-    public static function cityNotInAirline(string $cityType, int $cityId): self
-    {
-        return new self("Airline does not operate in the indicated {$cityType} city: {$cityId}");
-    }
+    public const ERROR_CODE = 'invalid_city_airline_exception';
 
-    public static function cityNotFound(int $cityId): self
-    {
-        return new self("City with {$cityId} id not found.");
-    }
+    protected $status = JsonResponse::HTTP_BAD_REQUEST;
 
-    public static function airlineNotFound(int $airlineId): self
-    {
-        return new self("Airline with {$airlineId} id not found.");
-    }
+    protected $errorCode = self::ERROR_CODE;
 }

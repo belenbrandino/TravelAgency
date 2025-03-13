@@ -13,6 +13,8 @@ class DeleteFlightController
     {
         $flight->delete();
 
-        return responder()->success()->respond(JsonResponse::HTTP_NO_CONTENT);
+        return responder()
+            ->success()
+            ->respond(JsonResponse::HTTP_NO_CONTENT);
     }
 }
